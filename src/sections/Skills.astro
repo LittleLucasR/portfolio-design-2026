@@ -1,0 +1,59 @@
+---
+const skills = [
+  {
+    number: "01",
+    title: "Direção Fotográfica",
+    description: "Cada composição parte de fundamentos de fotografia, iluminação, perspectiva e pós-produção. O objetivo é criar peças com acabamento premium, profundidade e aparência profissional.",
+  },
+  {
+    number: "02",
+    title: "IA como Ferramenta Criativa",
+    description: "Utilizo IA generativa para complementar o processo criativo, nunca para substituir ideias. Quando a imagem ideal não existe, desenvolvo elementos exclusivos mantendo a identidade da campanha.",
+  },
+  {
+    number: "03",
+    title: "Design com Objetivo",
+    description: "Cada key visual é pensado para o contexto em que será utilizado. A linguagem, hierarquia e composição mudam conforme o estágio da campanha, do topo ao fundo de funil.",
+  },
+  {
+    number: "04",
+    title: "Consistência de Marca",
+    description: "Um bom key visual não termina em uma peça. Desenvolvo conceitos que podem ser desdobrados para anúncios, redes sociais, landing pages, apresentações e materiais impressos, mantendo unidade visual em toda a campanha.",
+  },
+];
+---
+
+<section id="skills" class="relative flex min-h-screen w-full items-center px-6 py-20 sm:px-10 lg:px-16">
+  <div class="mx-auto w-full max-w-[1280px]">
+
+    <!-- Header -->
+    <header class="mb-16 border-b border-white/10 pb-8">
+      <span class="block text-xs font-semibold uppercase tracking-[0.2em] text-works-accent">
+        Competências
+      </span>
+      <h2 class="mt-2 text-3xl font-semibold leading-[1.05] tracking-tight text-works-text sm:text-4xl lg:text-5xl">
+        Skills
+      </h2>
+    </header>
+
+    <!-- Grid de 4 blocos -->
+    <ul class="grid grid-cols-2 gap-px  lg:grid-cols-4">
+      {
+        skills.map((skill) => (
+          <li class="flex flex-col gap-6  p-8 lg:p-10">
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-works-accent">
+              
+            </span>
+            <h3 class="text-lg font-semibold leading-tight tracking-tight text-works-text">
+              {skill.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-works-muted">
+              {skill.description}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+  </div>
+</section>

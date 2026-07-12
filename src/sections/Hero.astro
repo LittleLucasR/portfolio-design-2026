@@ -1,0 +1,75 @@
+---
+import Container from "../components/Container.astro";
+---
+
+<section class="hero relative flex min-h-screen w-full items-stretch text-pearl-white">
+  <Container>
+    <div class="grid h-full min-h-screen grid-cols-2 items-stretch">
+      <!-- Coluna esquerda: conteúdo -->
+      <div class="relative flex flex-col justify-center gap-8 pr-6 sm:pr-10 lg:pr-14">
+        <span
+          class="hero-content flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-pearl-white/60"
+        >
+          <span class="h-px w-6 bg-pearl-white/40" aria-hidden="true"></span>
+          Lucas Rodrigues Oronha
+        </span>
+
+        <h1 class="text-[clamp(2.25rem,6vw,4.5rem)] font-medium leading-[0.95] tracking-tight">
+          O key visual<br />
+          que dá força à sua campanha.
+        </h1>
+
+        <p class="max-w-[34ch] text-base leading-relaxed text-pearl-white/70 sm:text-lg">
+          Desenvolvo conceitos visuais que valorizam o trabalho do social media, fortalecem a marca e tornam cada peça mais consistente.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/curriculo.pdf"
+            download
+            class="inline-flex items-center gap-2 border border-pearl-white/20 px-5 py-2.5 text-sm font-semibold
+                   text-pearl-white transition-colors duration-200 hover:border-pearl-white/60 hover:bg-pearl-white/5"
+          >
+            Baixar currículo
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </a>
+
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 bg-pearl-white px-5 py-2.5 text-sm font-semibold
+                   text-black transition-colors duration-200 hover:bg-pearl-white/85"
+          >
+            Entrar em contato
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Coluna direita: imagem de apresentação -->
+      <div class="relative flex items-center justify-center pl-6 sm:pl-10 lg:pl-14">
+        <div class="aspect-square w-full max-w-[560px] overflow-hidden bg-pearl-white/5">
+          <img
+            src="/images/works/myself.png"
+            alt="Lucas Rodrigues Oronha"
+            class="pointer-events-none h-full w-full select-none object-cover"
+            draggable="false"
+          />
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  document
+    .querySelector(".hero img")
+    ?.addEventListener("contextmenu", (e) => e.preventDefault());
+</script>

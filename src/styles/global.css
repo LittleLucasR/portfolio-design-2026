@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* 1. Fix definitivo do "salto" de scrollbar ao abrir modais.
+      Reserva o espaço da scrollbar permanentemente, então ela nunca
+      "aparece/desaparece" e nada se desloca horizontalmente —
+      inclusive o devtoolbar do Astro, que é fixed na viewport. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* 2. Tokens de cor da seção Works (Tailwind v4 — via @theme).
+      Paleta: base quase-preta, accent âmbar-cobre usado com moderação,
+      remete ao registro editorial/técnico ("ficha de catálogo"). */
+@theme {
+   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-dynamic-black: #161415;
+  --color-pearl-white: #fcfcf7;
+  --color-works-surface: #14141a; /* superfície dos cards e do modal */
+  --color-works-text: #ededef;    /* texto principal */
+  --color-works-muted: #8b8d94;   /* texto secundário (descrição, label hint) */
+  --color-works-accent: #d97b3f;  /* âmbar-cobre — usar só em labels/hover/foco */
+}

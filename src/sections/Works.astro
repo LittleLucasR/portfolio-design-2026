@@ -1,0 +1,217 @@
+---
+import { projects } from "../data/projects";
+---
+
+<section id="works" class="relative flex min-h-dvh items-center px-6 py-20 sm:px-10 lg:px-16">
+  <div class="mx-auto w-full max-w-[1280px]">
+    <!-- Header -->
+    <header class="mb-12 flex items-end justify-between gap-6 sm:mb-16">
+      <div>
+        <span class="block text-xs font-semibold uppercase tracking-[0.2em] text-works-accent">
+          Projetos
+        </span>
+        <h2 class="mt-2 text-3xl font-semibold leading-[1.05] tracking-tight text-works-text sm:text-4xl lg:text-5xl">
+          Projetos
+          <span class="text-works-muted">selecionados</span>
+        </h2>
+      </div>
+      <p class="hidden max-w-[220px] text-sm leading-relaxed text-works-muted sm:block">
+        Seleção de projetos recentes. Clique em qualquer peça para ver os detalhes.
+      </p>
+    </header>
+
+    <!-- Grid -->
+    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+      {
+        projects.map((project, index) => (
+          <li>
+            <button
+              type="button"
+              class="group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-md bg-works-surface
+                     outline-none ring-1 ring-white/5 transition-all duration-300
+                     hover:ring-works-accent/40 focus-visible:ring-2 focus-visible:ring-works-accent"
+              data-project={project.slug}
+              aria-haspopup="dialog"
+              aria-controls="work-modal"
+            >
+              <img
+                class="pointer-events-none h-full w-full select-none object-cover opacity-90 transition-all duration-500 ease-out
+                       group-hover:scale-[1.04] group-hover:opacity-100"
+                src={project.thumbnail}
+                alt={project.title}
+                width="1280"
+                height="720"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+
+              {/* overlay "ficha de catálogo" */}
+              <span
+                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent
+                       opacity-70 transition-opacity duration-300 group-hover:opacity-90"
+              />
+
+              <span class="pointer-events-none absolute inset-x-4 bottom-4 flex items-center justify-between">
+                <span class="text-sm font-medium text-white sm:text-base">{project.title}</span>
+                <span
+                  class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/20
+                         text-white opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <!-- Modal -->
+  <div
+    id="work-modal"
+    class="fixed inset-0 z-100 hidden items-center justify-center p-4 sm:p-8"
+    aria-hidden="true"
+  >
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" data-close></div>
+
+    <div
+      class="relative z-10 grid max-h-[90vh] w-full max-w-5xl grid-cols-1 overflow-hidden rounded-lg
+             bg-works-surface text-works-text shadow-2xl shadow-black/50 md:grid-cols-[1.2fr_1fr]"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="work-modal-title"
+    >
+      <button
+        type="button"
+        class="absolute right-3 top-3 z-20 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full
+               bg-black/60 text-white transition-colors hover:bg-black/85 focus-visible:outline-2
+               focus-visible:outline-offset-2 focus-visible:outline-works-accent"
+        data-close
+        aria-label="Fechar"
+      >
+        ✕
+      </button>
+
+      <!-- Imagem HD protegida -->
+      <div class="relative flex max-h-[40vh] items-center justify-center bg-black md:max-h-[90vh]">
+        <img
+          id="work-modal-image"
+          src=""
+          alt=""
+          class="pointer-events-none h-full w-full select-none object-contain"
+          draggable="false"
+        />
+        <!-- Crédito no canto inferior direito -->
+        <span
+          id="work-modal-credit"
+          class="pointer-events-none absolute bottom-3 right-3 text-[10px] font-medium tracking-wide text-white/40 select-none"
+        >
+          Design por Lucas R. Oronha
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-6 overflow-y-auto p-6 sm:p-8">
+        <h3 id="work-modal-title" class="text-xl font-semibold leading-tight tracking-tight sm:text-2xl"></h3>
+
+        <div class="flex flex-col gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-[0.15em] text-works-accent">Descrição</span>
+          <p id="work-modal-description" class="text-sm leading-relaxed text-works-muted"></p>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-[0.15em] text-works-accent">Observação</span>
+          <p id="work-modal-observation" class="text-sm leading-relaxed text-works-muted"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ projects }}>
+  const modal = document.getElementById("work-modal");
+  const dialog = modal.querySelector("[role='dialog']");
+  const imageEl = document.getElementById("work-modal-image");
+  const titleEl = document.getElementById("work-modal-title");
+  const descriptionEl = document.getElementById("work-modal-description");
+  const observationEl = document.getElementById("work-modal-observation");
+
+  let lastFocusedEl = null;
+
+  // --- Proteção de imagens ---
+
+  // Bloqueia clique direito em qualquer imagem da seção
+  document.querySelectorAll("#works img, #work-modal img").forEach((img) => {
+    img.addEventListener("contextmenu", (e) => e.preventDefault());
+  });
+
+  // Bloqueia Ctrl+S (salvar página) e Ctrl+U (ver fonte) durante o modal
+  document.addEventListener("keydown", (e) => {
+    const modalOpen = !modal.classList.contains("hidden");
+
+    if (modalOpen && (e.ctrlKey || e.metaKey)) {
+      if (["s", "u", "p"].includes(e.key.toLowerCase())) {
+        e.preventDefault();
+      }
+    }
+
+    if (e.key === "Escape" && modalOpen) {
+      closeModal();
+    }
+  });
+
+  // --- Modal ---
+
+  function openModal(slug) {
+    const project = projects.find((p) => p.slug === slug);
+    if (!project) return;
+
+    imageEl.src = project.imageHD;
+    imageEl.alt = project.title;
+    titleEl.textContent = project.title;
+    descriptionEl.textContent = project.description;
+    observationEl.textContent = project.observation;
+
+    lastFocusedEl = document.activeElement;
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("overflow-hidden");
+
+    // bloqueia clique direito na imagem HD ao ser carregada
+    imageEl.addEventListener("contextmenu", (e) => e.preventDefault(), { once: false });
+
+    requestAnimationFrame(() => {
+      modal.querySelector("[data-close][aria-label='Fechar']")?.focus();
+    });
+  }
+
+  function closeModal() {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("overflow-hidden");
+    imageEl.src = "";
+
+    if (lastFocusedEl instanceof HTMLElement) {
+      lastFocusedEl.focus();
+    }
+  }
+
+  document.querySelectorAll("[data-project]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const slug = card.getAttribute("data-project");
+      if (slug) openModal(slug);
+    });
+  });
+
+  modal.querySelectorAll("[data-close]").forEach((el) => {
+    el.addEventListener("click", closeModal);
+  });
+
+  // evita que clique dentro do dialog feche o modal (propagação até o backdrop)
+  dialog.addEventListener("click", (e) => e.stopPropagation());
+</script>

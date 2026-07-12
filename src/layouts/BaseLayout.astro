@@ -1,0 +1,71 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+}
+
+const {
+  title = "Lucas Hyalex | Desenvolvedor Frontend",
+  description = "Desenvolvedor Frontend especializado em experiências web modernas, performance e interfaces de alta conversão.",
+  url = "https://lucashyalex.com",
+  image = "https://lucashyalex.com/og-image.jpg",
+} = Astro.props;
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+
+    <!-- preconnect: reduz latência na conexão com o Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!--
+      Inter: pesos 400 (body), 500 (medium), 600 (semibold), 700 (bold).
+      Inclui o subset latin — se você precisar de latin-ext (ç, ã etc),
+      troca &subset=latin por &subset=latin,latin-ext no final da URL.
+      display=swap: texto fica visível com fonte fallback enquanto Inter carrega.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={url} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Lucas Hyalex",
+      "url": url,
+      "jobTitle": "Desenvolvedor Frontend",
+      "description": description,
+    })} />
+  </head>
+  <body class="bg-dynamic-black">
+    <slot />
+  </body>
+</html>
