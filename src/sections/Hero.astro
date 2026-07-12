@@ -57,7 +57,7 @@ import Container from "../components/Container.astro";
       <div class="relative flex items-center justify-center pl-6 sm:pl-10 lg:pl-14">
         <div class="aspect-square w-full max-w-[560px] overflow-hidden bg-pearl-white/5">
           <img
-            src="/images/works/myself.png"
+            src={`${import.meta.env.BASE_URL}images/works/myself.png`}
             alt="Lucas Rodrigues Oronha"
             class="pointer-events-none h-full w-full select-none object-cover"
             draggable="false"
