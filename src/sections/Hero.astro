@@ -25,7 +25,7 @@ import Container from "../components/Container.astro";
 
         <div class="flex flex-wrap items-center gap-3">
           <a
-            href="/curriculo.pdf"
+            href={`${import.meta.env.BASE_URL}/curriculo.pdf`}
             download
             class="inline-flex items-center gap-2 border border-pearl-white/20 px-5 py-2.5 text-sm font-semibold
                    text-pearl-white transition-colors duration-200 hover:border-pearl-white/60 hover:bg-pearl-white/5"
